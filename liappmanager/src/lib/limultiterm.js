@@ -205,7 +205,7 @@ export default class LiMultiTerm extends Component{
 
         var difftimeMin = (curDateTime - lastLoadedDateTime)/1000/60; 
 
-        console.log("langCode1===="+langCode1+"====cur===="+curDateTime+"======"+"last loaded"+lastLoadedDateTime+"=========="+"minute: "+difftimeMin);
+        // console.log("langCode1===="+langCode1+"====cur===="+curDateTime+"======"+"last loaded"+lastLoadedDateTime+"=========="+"minute: "+difftimeMin);
        
         if (parseInt(difftimeMin) >= 240) {
             var curDateTime = new Date();

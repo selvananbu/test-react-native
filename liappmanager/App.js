@@ -24,6 +24,7 @@ import CustomHeader from './src/component/CustomHeader';
 import Login from './src/component/Login';
 import LicenseInfo from './src/component/lilibrary';
 import Settings from './src/component/lisettings';
+import UserAccount from './src/component/UserAccount';
 import {width,height} from 'react-native-dimension';
  
 class NavigationDrawerStructure extends Component {
@@ -90,6 +91,26 @@ const LoginActivity_StackNavigator = createStackNavigator({
       headerTintColor: '#fff',
     }),
   },
+  UserAccount: {
+    screen: UserAccount,
+    navigationOptions: ({ navigation }) => ({
+      // title: 'Lisec.Core ',
+      headerTitle:<View style={{marginLeft:width(7)}}>
+        <Text style={{color:"#fff",fontSize:20,fontWeight:"800"}}>Lisec.Core</Text>
+        </View>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#a0185c',
+      },
+      headerRight:<View style={{flexDirection:"row",justifyContent:"center"}}>
+        <TouchableOpacity style={{width:width(15),alignItems:"center",justifyContent:"center"}}>
+            <Image source={require("./src/asset/newsfeedwhiteicon.png")} style={{width:width(8),height:height(8)}} resizeMode="contain"/>
+        </TouchableOpacity>
+      </View>,
+      headerTintColor: '#fff',
+    }),
+  },
+
 });
 
 const LicenseActivity_StackNavigator = createStackNavigator({
@@ -137,6 +158,30 @@ const SettingsActivity_StackNavigator = createStackNavigator({
     }),
   },
 });
+
+const UserAccountActivity_StackNavigator = createStackNavigator({
+  //All the screen from the Screen1 will be indexed here
+  UserAccount: {
+    screen: UserAccount,
+    navigationOptions: ({ navigation }) => ({
+      // title: 'Lisec.Core ',
+      headerTitle:<View style={{marginLeft:width(7)}}>
+        <Text style={{color:"#fff",fontSize:20,fontWeight:"800"}}>Lisec.Core</Text>
+        </View>,
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#a0185c',
+      },
+      headerRight:<View style={{flexDirection:"row",justifyContent:"center"}}>
+        <TouchableOpacity style={{width:width(15),alignItems:"center",justifyContent:"center"}}>
+            <Image source={require("./src/asset/newsfeedwhiteicon.png")} style={{width:width(8),height:height(8)}} resizeMode="contain"/>
+        </TouchableOpacity>
+      </View>,
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
 
  
 const DrawerNavigatorExample = createDrawerNavigator({

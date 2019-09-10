@@ -8,8 +8,9 @@ import {
   Text,ImageBackground,PickerIOS, NativeModules
 } from 'react-native';
 
-import CheckBox from '@react-native-community/checkbox';
 import { width, height } from 'react-native-dimension';
+
+import * as ReactConnector from '../lib/reactconnector';
 
 
 
@@ -17,7 +18,6 @@ import OpenApiClient_search from '../openapi/openapiclient_search';
 import * as LocalSettings from '../lib/localsettings';
 import * as commonFunction from '../lib/responseFunction';
 
-// import * as MenuConnector from './nativeconnector/menuconnector';
 import LiMultiTerm from '../lib/limultiterm';
 const muobj = new LiMultiTerm("", "");
 const PREFIX = 'AAD_';
@@ -95,32 +95,34 @@ export default class LiSettings extends Component {
       });      
       LocalSettings.setStorageItem("core.app.language.id3", site);
       if(Platform.OS === "android"){
-        // MenuConnector.writeKeyValueItem("core.app.language.id3", site);
+        ReactConnector.writeKeyValueItem("core.app.language.id3", site);
       }
       else{
         NativeModules.TestBridge.writeKeyValueItem("core.app.language.id3", site)
       }
-      // MenuConnector.setLocale(site);
+      ReactConnector.setLocale(site);
     }
 
      handleComboChangeForFav(favindex,index){
        console.log('====================================');
-       console.log(favindex);
+       console.log(this.state.selectedAttribute.unit[favindex],this.state.selectedAttribute);
        console.log('====================================');
-
-      var favunit = this.state.selectedAttribute.unit[favindex];
+      if(this.state.selectedAttribute.length > 0){
+        var favunit = this.state.selectedAttribute.unit[favindex];
         this.setState({
           selectedFavUnit: favunit,
           selectedFavUnitIndex:favindex
         });
         LocalSettings.setStorageItem(PREFIX + this.state.selectedAttribute.attrType+"_FAV",index);
         if(Platform.OS === "android"){
-          // MenuConnector.writeKeyValueInteger(PREFIX + this.state.selectedAttribute.attrType + "_FAV", index);
+           ReactConnector.writeKeyValueInteger(PREFIX + this.state.selectedAttribute.attrType + "_FAV", index);
           }
           else{
             NativeModules.TestBridge.writeKeyValueInteger(PREFIX + this.state.selectedAttribute.attrType + "_FAV", index);
           }
         
+      }
+      
     }
     handleComboChangeForAttribute(mainindex, index) {
 

@@ -44,11 +44,14 @@ export default class Home extends Component {
    checkForLogin = async () => {
     let baseurl = LocalSettings.getStorageItem("config.baseurl");
     let loggedIn = LocalSettings.getStorageItem("config.loggedin");
+
     console.log('====================================');
-        console.log(baseurl);
-        console.log('====================================');
+    console.log("!!!!!!!!!!!!!!!",baseurl,loggedIn);
+    console.log('====================================');
+    
     if (baseurl === undefined || baseurl === []) {
-        this.props.navigation.navigate("Login",{isBaseURLAvailable: false})
+        // this.props.navigation.setParams({ isBaseURLAvailable: false });
+        this.props.navigation.push("Login")
         // Actions.Login({
         //     isBaseURLAvailable: false
         // });
@@ -60,6 +63,16 @@ export default class Home extends Component {
 }
  componentDidMount() {
      LocalSettings.initializeLocalSettings(this.callBackAfterStorageInit.bind(this));
+     console.log('======Navigateeeeeeeeeeeee==================');
+     console.log(this.props.navigation);
+     console.log('====================================');
+     this.focusListener = this.props.navigation.addListener("didFocus", () => {
+
+        let loggedIn = LocalSettings.getStorageItem("config.loggedin");
+        if(loggedIn){
+            this.setState({isLogging:false})
+        }
+     })
  
  }
  callBackForAttributes(responseData){
@@ -75,6 +88,7 @@ export default class Home extends Component {
  }
 }
  callBackAfterStorageInit() {
+   
      var siteNameGlobal = LocalSettings.getStorageItem("config.sitename")
      if (LocalSettings.getStorageItem("FAV_ATTRLIST") === undefined){
          OpenApiClient_search.getClient(siteNameGlobal).GET_attributes(this.callBackForAttributes.bind(this));
@@ -84,7 +98,7 @@ export default class Home extends Component {
  }
    componentWillUnmount() {
        muobj.setupText();
-       this.focusListener.remove();
+       this.didFocusSubscription.remove();
    }
    componentDidUpdate() {
        muobj.setupText();
@@ -105,6 +119,7 @@ export default class Home extends Component {
  }
 componentWillUnmount(){
      BackHandler.removeEventListener('hardwareBackPress', this.backHandler);
+     this.focusListener.remove();
 }
  backHandler = () => {
      if (this.state.backButtonEnabled) {
