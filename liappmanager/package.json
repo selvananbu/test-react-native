@@ -18,7 +18,7 @@
     "buffer": "^5.2.1",
     "graceful-fs": "^4.1.15",
     "js-sha3": "^0.8.0",
-    "qs": "^6.5.2",
+    "qs": "^6.5.3",
     "react": "16.8.6",
     "react-native": "0.60.5",
     "react-native-dimension": "^1.0.6",
